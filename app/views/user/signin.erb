@@ -1,0 +1,17 @@
+<h1>Wecome Back</h1>
+<h2>please sign in</h3> 
+<% if @session.include?("message") %>
+<%= @session[:message] %>
+<% @session.clear %>
+<p>Or <a href='/user/signup'>Sign Up</a>
+<% end %> 
+
+<form action="/user/signin" method="POST">
+  <h4>Name:
+  <input type="text" name="username" id="username"><h/h4>
+<br>
+<h4>Password:
+  <input type="text" name="password_digest" id="password_digest"></h4>
+  <input type="submit" value="Sign In">
+</form>
+

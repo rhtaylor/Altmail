@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    
+    <% Message.all.each do |x| %> 
+    <% binding.pry %>
+    <form action="/articles/<%= params[:id] %>" method="POST">
+      <input id="hidden" type="hidden" name="_method" value="patch">
+      <label for "name">Message:</label>
+      <input type="text" id="title" name="title" value="<%=@message.title %>">
+      <br />
+      <label for "content">Content:</label>
+      <input type="text" id="content" name="content" value="<%= @article.content %>">
+      <br />
+      <input type="submit" value="submit" id="Update">
+    </form> 
+    <% end %>
+  </body>
+</html>

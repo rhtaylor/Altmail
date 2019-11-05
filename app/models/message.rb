@@ -1,0 +1,4 @@
+require_relative '../../config/environment'
+class Message < ActiveRecord::Base
+   belongs_to :user
+end

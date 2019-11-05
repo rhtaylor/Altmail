@@ -1,0 +1,16 @@
+<h1>Welcome to The Message Board</h1>
+<h2>please sign up</h3> 
+<%  %>
+<% if session[:message] == "try again" %>
+<h1><%= session[:message]  %></h1>
+<% end %>
+<form action="/user/signup" method="POST">
+  <h4>Name:
+  <input type="text" name="username" id="username"><h/h4>
+<br>
+  <h4>email:<input type="text" name="email" id="emil"></h4>
+
+  <h4>Password:
+  <input type="text" name="password_digest" id="password_digest"></h4>
+  <input type="submit" value="Sign Up">
+</form>

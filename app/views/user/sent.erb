@@ -1,0 +1,32 @@
+
+<html>
+  <head>
+  <link href="<%= url('./sent.css') %>" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="./sent.css" /> 
+  </head>
+  <body>
+
+<div class="task">
+<h1 class="color" style="color: red;" ><%= @message.author %></h1>
+<h1>You have sent</h1>
+<% @messages.each do |message| %>  
+<% if message.author == @message.author %>
+<%  %>
+<% message.sent_to.split("-").map do |id| %>
+<div class="force">
+    <p class="color">You sent </p>
+<% @messaged = User.find_by(:id => id ) %> 
+<p><%= @messaged.username %></p>
+<p><%= message.message %></p>  
+  
+<form method="post" action="/message/<%= message.id %>/delete">
+  <input type="hidden" name="_method" value="delete" />
+  <input type="submit" value="delete"/>
+</form> 
+<a href='/message/edit'>Edit</a>
+</div> 
+</div>
+<% end %> 
+<% end %> 
+<% end %> 
+</body>
