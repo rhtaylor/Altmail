@@ -8,8 +8,12 @@ class MessageController <  Sinatra::Base
       set :session_secret, "secret"
       set :public_folder, 'public'
       set :views, 'app/views'
-    end
+    end 
+
+   
+    
   post '/message/send' do  
+    
     @users_ids = params["user"]["id"] 
     @users = @users_ids.map{ |id| User.find_by(id: id )}
     @id = params["user"]["id"]
@@ -17,36 +21,33 @@ class MessageController <  Sinatra::Base
     @new_params = {:message => params["message"], 
                    :author => params["author"],
                    :sent_to => @packed_id }
-    
-    
     @message = Message.create(@new_params)
     
+    packed_ids = @message.sent_to 
+    ids = packed_ids.split("-") 
+    @sent_to_users = ids.map{ |x| User.find_by(id: x)} 
     @user = User.find_by(username: @message.author)
-    
-    @messages = Message.all
     erb :"/user/sent"
   end
-   get '/message/my_sent_messages' do  
-    @messages = Message.order("created_at DESC")
-     erb :'user/sent'
-   end 
+    
 
-   get '/message/edit' do  
+
+    patch "/message/:id" do  
       
-      erb :'message/edit'
+      id = params["id"]
+      new_params = {}
+      old_message = Message.find(id)
+      new_params[:message] = params["message"]
+      
+      @message = Message.find(params["id"])
+      old_message.update(new_params)
+      redirect "/message/#{id}"
+     
    end
-
-   patch '/message/:id/' do 
-      binding.pry
-    id = params["id"]
-    new_params = {}
-    old_message = Message.find(id)
-    new_params[:message] = params["message"]
-    new_params[:author] = params["author"]
-    @article = Message.find(params["id"])
-    old_article.update(new_params)
-    redirect "/message/#{id}"
-  end 
+ 
+   get '/message/:id' do 
+    binding.pry
+   end 
   
    delete '/message/:id/delete' do 
     

@@ -41,7 +41,6 @@ class UserController <  Sinatra::Base
     end
     end  
     get "/user/:id" do 
-    
     @user = User.find(params[:id])
     erb :"/user/id"
     end  

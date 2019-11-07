@@ -1,17 +1,25 @@
 
+.box {
+    border-style: double;
+    width: 400px;
+}
+
 body {
-    background-color: lightblue;
-    color: #333;
+    background-color: rgb(194, 223, 233);
+    color: rgb(75, 4, 4);
     font-family: Sans-Serif;
     line-height: 18px;
   } 
 
 .task {display: flex;  
-    flex-direction: column;
+    flex-direction: row;
      flex-wrap: wrap    
     } 
 
-.force {align-self: auto;
+.force { 
+    justify-content: center;
+    
+    flex-grow: 1;
     color: blue;
 
 } 
@@ -20,10 +28,14 @@ body {
 } 
 
 h1 { 
-    color: green;
+    color: rgb(231, 23, 16);
     
   } 
 
+h3 {
+    color: rgba(180, 39, 39, 0.651)
+
+}
 p { 
-    color: orange;
+    color: rgb(255, 81, 0);
 }
