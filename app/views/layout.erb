@@ -11,12 +11,25 @@
   </head>
   <body>
     <div class="wrapper">
-
-        <%= yield %>
+    <% if Helpers.is_logged_in?(session) %>  
+    <% id = session["user_id"] %>
+    <span><a href='/user/<%= id %>/sent_all' >Your messages</a> <a href=>profile</a> <a href="">log out</a></span>
+    <% end %>
+        <%= yield %> 
+    <br>
+    <% if !(Helpers.is_logged_in?(session)) %>
+    <% unless @session.has_key?("page") %> 
+    
+        <div id="logged_out">
         <a href="/user/signin">Sign In</a> 
-        <a href='/user/signup'>Sign Up</a>
-      <footer class="branding">
-        <small>&copy; 2019 <strong>Send messages in a private network</strong></small>
+        <a href='/user/signup'>Sign Up</a> 
+        </div>
+        <% end %> 
+        <% end %>
+    <footer> 
+     
+
+    <small> <strong>Send messages in a private network</strong></small>
       </footer>
     </div>
   </body>

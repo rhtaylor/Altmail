@@ -1,6 +1,15 @@
-<h1>Welcome <%= @user.username %></h1>
-<p>Send to: </p>
+<%  %>
+<h1>Welcome <%= @user.username %> </h1>
+
+<% if @message %> 
+
+<p class="color">You sent <b><%= @sent_to_users.map{ |x| x.username }.join(", ") %></b></p>
+<h4>The Updated Message: <%= @message.message %></h4>
+<% end %>
+<p>Send message to: </p>
 <% if Helpers.is_logged_in?(session) %>
+
+
 <% User.all.each do |x| %> 
 <% unless x.id == @user.id %>
 <form action="/message/send" method="POST">
@@ -15,7 +24,10 @@
 </textarea> 
 <input type="submit" id="submit" value="send it">  
 </form>
-<h3><a href="/user/logout">Log out</a></h3> 
-<% else %> 
-<h4><%binding.pry%>YES</h4>
+<h3><a href="/user/logout">Log out</a></h3>  
+<% else %>
+<h4>LOG IN PLEASE</h4>
 <% end %>
+
+
+

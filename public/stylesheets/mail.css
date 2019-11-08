@@ -1,8 +1,29 @@
 .wrapper { 
-    
+    display: flex; 
+    flex-direction: column;
     background-color: rgb(201, 222, 230);
     color: #333;
     font-family: Sans-Serif;
     line-height: 18px;
+    min-height: 700px; 
+    min-width: 500px;
+    justify-content: center;
+} 
+
+#ind1 { 
+    justify-content: start; 
+    
+    
+    order: 1;
+} 
+
+#ind2 {
+    justify-content: end; 
+    align-items: baseline; 
+    order: 2;
+} 
+
+#logged_out {
+    justify-content: flex-end;
 
 }

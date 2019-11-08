@@ -8,29 +8,10 @@
   <body>
 
 
-<h1 ><%= @message.author %></h1>
-<h1>You have sent</h1> 
+<h1 ><%= @user.username %></h1>
+<h1>You have sent <%= @messages.count %> messages</h1> 
 <div class="task">
 <% @messages.each do |message| %>  
-<% if message.author == @message.author %>
-<%  %>
-<% message.sent_to.split("-").map do |id| %>
-<div class="force"> 
-    <div class="box">
-    <p class="color">You sent </p>
-<% @messaged = User.find_by(:id => id ) %> 
-<h3><b><%= @messaged.username %></b></h3>
-<p><%= message.message %></p>  
-
-<form method="post" action="/message/<%= message.id %>/delete">
-  <input type="hidden" name="_method" value="delete" />
-  <input type="submit" value="delete"/>
-</form> 
-<a href='/message/edit'>Edit</a> 
-</div>
-</div> 
-</div>
-<% end %> 
-<% end %> 
+<p><%= message.message %></p>
 <% end %> 
 </body>

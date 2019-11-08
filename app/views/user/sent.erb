@@ -1,11 +1,11 @@
 <h1 ><%= @message.author %></h1>
-<h1>You have sent</h1> 
+ 
 <div class="task">
 
 <div class="force"> 
     <div class="box">
-    <p class="color">You sent <b><%= @sent_to_users.map{ |x| x.username }.join(", ")
-    %></b></p> 
+    <h4 class="color">You sent <b><i><%= @sent_to_users.map{ |x| x.username }.join(", ")
+    %></i></b></h4> 
      
     <% user = params[:user] %>
     <form action="/message/<%= @message.id %>" method="POST">
@@ -13,11 +13,11 @@
       <label for "name">Message:</label>
       <input type="text" id="message" name="message" value="<%=@message.message %>">
       <br />
-      <b><input type="submit" value="EDIT" id="Update"></b>
+      <b>Change the message<input type="submit" value="EDIT" id="Update"></b>
     </form>
 <form method="post" action="/message/<%= @message.id %>/delete"> 
-  <input 
-  <input type="hidden" name="_method" value="delete" />
+  
+  <b>Delete the message<input type="hidden" name="_method" value="delete" /></b>
   <input type="submit" value="delete"/>
 </form> 
 
