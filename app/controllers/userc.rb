@@ -29,6 +29,7 @@ class UserController <  Sinatra::Base
     end 
     get "/user/logout" do
       session.clear
+      @session = session
       erb :index
     end 
 
@@ -48,6 +49,7 @@ class UserController <  Sinatra::Base
          session[:user_id] = @user.id
          redirect "user/#{@user.id}" 
     elsif User.find_by("email" == params[:email])
+          session.clear
           session["message"] = "email already used"
           @session = session
           redirect 'user/signup'
