@@ -1,7 +1,13 @@
 
 .box {
     border-style: double;
-    width: 400px;
+    width: 400px; 
+    background-color: rgb(205, 255, 248);  
+    max-width: 500px;
+
+}
+.message { color: rgb(24, 4, 4)
+
 }
 
 body {

@@ -13,7 +13,9 @@
     <div class="wrapper">
     <% if Helpers.is_logged_in?(session) %>  
     <% id = session["user_id"] %>
-    <span><a href='/user/<%= id %>/sent_all' >Your messages</a> <a href=>profile</a> <a href="">log out</a></span>
+    <% x = Helpers.current_user(session) %> 
+    
+    <span><a href='/user/<%= id %>/sent_all' >Your messages</a> <a href='/user/<%= x.id %>/' >Your profile</a> <a href="/user/logout">log out</a></span>
     <% end %>
         <%= yield %> 
     <br>
@@ -29,8 +31,9 @@
     <footer> 
      
 
-    <small> <strong>Send messages in a private network</strong></small>
+    
       </footer>
     </div>
+    <small> <strong>Send messages in a private network</strong></small>
   </body>
 </html>

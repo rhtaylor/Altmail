@@ -12,47 +12,67 @@ class MessageController <  Sinatra::Base
 
    
     
-  post '/message/send' do  
-    
-      @users_ids = params["user"]["id"] 
-      @users = @users_ids.map{ |id| User.find_by(id: id )}
-      @packed_id = @users_ids.join("-") 
-      @new_params = {:message => params["message"], 
+  post '/message/sent' do  
+        
+      if params["message"] == "\r\n" && !(params.has_key?("user"))
+        @user =   User.find_by(username: params["author"])
+        session["message"] = "Fill out message section" 
+        @session = session
+        id = @user.id
+        redirect "/user/#{id}"
+      elsif !(params.has_key?("user"))
+        @user =   User.find_by(username: params["author"])
+        id = @user.id
+        session["message"] = "Select a user"
+        @session = session 
+        id = @user.id
+        redirect "/user/#{id}"
+
+      elsif
+        @users_ids = params["user"]["id"] 
+        @users = @users_ids.map{ |id| User.find_by(id: id )}
+        @packed_id = @users_ids.join("-") 
+        @new_params = {:message => params["message"], 
                    :author => params["author"],
                    :sent_to => @packed_id }
-      @message = Message.create(@new_params)
+        @message = Message.create(@new_params)
     
       packed_ids = @message.sent_to 
       ids = packed_ids.split("-") 
       @sent_to_users = ids.map{ |x| User.find_by(id: x)} 
       @user = User.find_by(username: @message.author) 
-    
-    erb :"/user/sent"
-  end
-    
-
-
-    patch "/message/:id" do  
+      erb :"/user/sent" 
       
+      end 
+    end
+
+    
+
+
+  patch "/message/:id" do  
+      @all = User.all
       id = params["id"]
       new_params = {}
       old_message = Message.find(id)
       new_params[:message] = params["message"]
       
       @message = Message.find(params["id"])
-      old_message.update(new_params)
+      old_message.update(new_params) 
+      
       redirect "/message/#{id}"
      
    end
  
-   get '/message/:id' do  
+   get '/message/:id' do   
+    @session = session
     id = params[:id]
     @message = Message.find(params[:id]) 
     ids = @message.sent_to.split("-")
     @sent_to_users = ids.map{ |x| User.find_by(id: x)} 
-    
+    @all = User.all
     @user = User.find_by(username: @message.author)  
-    id = params[:id]
+    id = params[:id] 
+    
     erb :"user/id"
   end 
   

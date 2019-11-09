@@ -8,10 +8,21 @@
   <body>
 
 
-<h1 ><%= @user.username %></h1>
+<h1><%= @user.username %></h1>
 <h1>You have sent <%= @messages.count %> messages</h1> 
 <div class="task">
-<% @messages.each do |message| %>  
-<p><%= message.message %></p>
+<% if @messages == [] %> 
+<% id = @user.id %>
+<p><%= @user.username %><a href="/user/<%= id %>" >send a message</a></p> 
+<% end %>
+<% unless @messages == [] %> 
+<%  %>
+<% @messages.each do |message| %>   
+<% user = User.find_by(id: message.sent_to.to_i) %>
+<div class="box">
+<p class="message">You sent <i><%= user.username %></i>:</p>
+<p class="message"><%= message.message %></p>
+</div>
+<% end %>
 <% end %> 
 </body>
