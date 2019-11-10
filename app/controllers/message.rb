@@ -14,19 +14,19 @@ class MessageController <  Sinatra::Base
     
   post '/message/sent' do  
         
-      if params["message"] == "\r\n" && params["title"] == ""
+      if params["message"] == "\r\n" || params["title"] == ""
         @user =   User.find_by(username: params["author"])
         session["message"] = "Fill out message section" 
-        @session = session
+       @session = session
         id = @user.id
-        redirect "/user/#{id}"
+        redirect "user/#{id}"
       elsif params["title"] == ""
         @user =   User.find_by(username: params["author"])
         id = @user.id
         session["message"] = "Write a Title"
         @session = session 
         id = @user.id
-        redirect "/user/#{id}"
+        redirect "user/#{id}"
 
       elsif
       

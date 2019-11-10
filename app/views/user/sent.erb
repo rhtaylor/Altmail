@@ -8,7 +8,7 @@
     <form action="/message/<%= @message.id %>" method="POST">
       <input id="hidden" type="hidden" name="_method" value="patch">
       <label for "title">Title:</label>
-      <input type="text" id="title" name="title" value="<%= @message.message %>" >
+      <input type="text" id="title" name="title" value="<%= @message.title %>" >
       <br />
       <label for "name">Message:</label>
       <input type="text" id="message" name="message" value="<%=@message.message %>">
