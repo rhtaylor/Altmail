@@ -7,7 +7,7 @@
   </head>
   <body>
 
-
+<% %>
 <h1><%= @user.username %></h1>
 <h1>You have written <%= @messages.count %> messages</h1> 
 <div class="task">
@@ -16,12 +16,14 @@
 <p><%= @user.username %><a href="/user/<%= id %>" >send a message</a></p> 
 <% end %>
 <% unless @messages == [] %> 
-<% %>
+
 <% @messages.each do |message| %>   
   <div class="box"> 
-  
+  <%  %>
   <p class="message">Title <i><%= message.title %></i></p>
-  <p class="message"><b><%= message.message %></b></p>
+  <p class="message"><b><%= message.message %></b></p>  
+  <a href='/message/<%= message.id %>/edit'>Edit</a>
+  <br>
   <form method="post" action="/message/<%= message.id %>/delete"> 
   Delete this message<input type="hidden" name="_method" value="delete" />
   <input type="submit" value="delete"/>

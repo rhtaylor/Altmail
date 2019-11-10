@@ -65,6 +65,11 @@ class MessageController <  Sinatra::Base
     id = params[:id] 
     
     erb :"user/id"
+  end  
+
+  get '/message/:id/edit' do 
+    @message = Message.find(params["id"]) 
+    erb  :"/message/edit"
   end 
   
    delete '/message/:id/delete' do 
