@@ -33,6 +33,7 @@ class MessageController <  Sinatra::Base
       
       @message = Message.create(params)
       @user = User.find_by(username: @message.author) 
+      binding.pry
       erb :"/user/sent" 
       
       end 

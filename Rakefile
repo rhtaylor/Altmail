@@ -19,7 +19,7 @@ task :muhaha do
       t.string :message 
       t.string :author
       t.string :title
-      
+      t.integer :user_id
     end 
     
   end

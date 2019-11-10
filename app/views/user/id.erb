@@ -37,6 +37,7 @@
 
 </textarea> 
 <br>
+<input type="hidden" name="user_id" value="<%= @user.id %>">
 <input type="hidden" name="author" value="<%= @user.username %>" checked >By <%=@user.username %><br>
 <input type="submit" id="submit" value="send it">  
 </form>
