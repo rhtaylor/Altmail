@@ -1,4 +1,14 @@
+<!DOCTYPE html>
 
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+
+    <title>Self_mail</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/stylesheets/mail.css" />
+  </head>
 <h1>Welcome <%= @user.username %> </h1>
 
 <% if @message %> 
@@ -10,8 +20,10 @@
 <% unless @message %>
 <p>Write a new message: </p>
 <% end %>
-<% if @session.has_key?("message") && @session["message"] == "Fill out message section" %>
-<p><%= @session["message"] %></p>
+<% if @session[:message] %>
+<% x = @session[:message] %>
+<p class="red"><%= x %></p>
+
 <% end %>
 <% if Helpers.is_logged_in?(session) %>
 
@@ -33,6 +45,6 @@
 <% else %>
 <h4>LOG IN PLEASE</h4>
 <% end %>
-
+</html>
 
 
