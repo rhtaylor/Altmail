@@ -18,7 +18,8 @@
 <% unless @messages == [] %> 
 <% %>
 <% @messages.each do |message| %>   
-  <div class="box">
+  <div class="box"> 
+  
   <p class="message">Title <i><%= message.title %></i></p>
   <p class="message"><b><%= message.message %></b></p>
   <form method="post" action="/message/<%= message.id %>/delete"> 
