@@ -3,7 +3,7 @@ class CreateMessages < ActiveRecord::Migration
     create_table :messages do |t| 
           t.string :message 
            t.string :author 
-           t.string :sent_to
+           t.string :title
   end
 end
 end

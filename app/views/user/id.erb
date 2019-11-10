@@ -3,28 +3,24 @@
 
 <% if @message %> 
 
-<p class="color">You sent <b><%= @sent_to_users.map{ |x| x.username }.join(", ") %></b></p>
+<p class="color">You wrote <b><%= @sent_to_users.map{ |x| x.username }.join(", ") %></b></p>
 <h4>The Updated Message: <%= @message.message %></h4>
-<p>Sent new message to:</p>
+<p>Write new message:</p>
 <% end %>
 <% unless @message %>
-<p>Send message to: </p>
+<p>Write a new message: </p>
 <% end %>
-<% if @session.has_key?("message") && @session["message"] == "Fill out message section" || @session["message"] == "Select a user" %>
+<% if @session.has_key?("message") && @session["message"] == "Fill out message section" %>
 <p><%= @session["message"] %></p>
 <% end %>
 <% if Helpers.is_logged_in?(session) %>
 
 
-<% @all.each do |x| %> 
-<% unless x.id == @user.id %>
 <form action="/message/sent" method="POST">
+<p>Title:<input type="text" name="title" id="title"></p>
 
-<input type="checkbox" name="user[id][]" id="<%= x.id %>" value="<%= x.id %>"><%= x.username %><br>
-<% end %>
-<% end %>
 <br><br>
-<input type="checkbox" name="author" value="<%= @user.username %>" checked >From <%=@user.username %><br>
+<input type="hidden" name="author" value="<%= @user.username %>" checked >From <%=@user.username %><br>
 <textarea class = "content" name="message" rows="5" cols="15">
 
 </textarea> 

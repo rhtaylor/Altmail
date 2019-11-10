@@ -14,32 +14,23 @@ class MessageController <  Sinatra::Base
     
   post '/message/sent' do  
         
-      if params["message"] == "\r\n" && !(params.has_key?("user"))
+      if params["message"] == "\r\n" && !(params.has_key?("title"))
         @user =   User.find_by(username: params["author"])
         session["message"] = "Fill out message section" 
         @session = session
         id = @user.id
         redirect "/user/#{id}"
-      elsif !(params.has_key?("user"))
+      elsif !(params.has_key?("title"))
         @user =   User.find_by(username: params["author"])
         id = @user.id
-        session["message"] = "Select a user"
+        session["message"] = "Write a Title"
         @session = session 
         id = @user.id
         redirect "/user/#{id}"
 
       elsif
-        @users_ids = params["user"]["id"] 
-        @users = @users_ids.map{ |id| User.find_by(id: id )}
-        @packed_id = @users_ids.join("-") 
-        @new_params = {:message => params["message"], 
-                   :author => params["author"],
-                   :sent_to => @packed_id }
-        @message = Message.create(@new_params)
-    
-      packed_ids = @message.sent_to 
-      ids = packed_ids.split("-") 
-      @sent_to_users = ids.map{ |x| User.find_by(id: x)} 
+      
+        @message = Message.create(params)
       @user = User.find_by(username: @message.author) 
       erb :"/user/sent" 
       
