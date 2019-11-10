@@ -31,7 +31,7 @@ class MessageController <  Sinatra::Base
 
       elsif
       
-        @message = Message.create(params)
+      @message = Message.create(params)
       @user = User.find_by(username: @message.author) 
       erb :"/user/sent" 
       
