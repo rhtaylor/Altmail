@@ -47,7 +47,8 @@ class MessageController <  Sinatra::Base
       old_message = Message.find(id)
       new_params[:message] = params["message"]
       new_params[:title] = params["title"]
-      @message = Message.find(params["id"])
+      @message = Message.find(params["id"]) 
+      
       old_message.update(new_params) 
       
       redirect "/message/#{id}"

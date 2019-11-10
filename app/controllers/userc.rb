@@ -40,8 +40,9 @@ class UserController <  Sinatra::Base
       @all = User.all 
       erb :"/user/id"
     end
-    get '/user/:id/sent_all' do  
-        @user = User.find_by(params)
+    get '/user/:id/sent_all' do
+        @user = User.find(params[:id])
+        
         @messages = Message.all.map{ |unit| unit.author == @user.username ? unit : next }  
         @session = session
         erb :'/user/sent_all'
