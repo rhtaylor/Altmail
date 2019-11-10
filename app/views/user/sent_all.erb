@@ -9,7 +9,7 @@
 
 
 <h1><%= @user.username %></h1>
-<h1>You have sent <%= @messages.count %> messages</h1> 
+<h1>You have written <%= @messages.count %> messages</h1> 
 <div class="task">
 <% if @messages == [] %> 
 <% id = @user.id %>
@@ -18,10 +18,10 @@
 <% unless @messages == [] %> 
 <%  %>
 <% @messages.each do |message| %>   
-<% user = User.find_by(id: message.sent_to.to_i) %>
+
 <div class="box">
-<p class="message">You sent <i><%= user.username %></i>:</p>
-<p class="message"><%= message.message %></p>
+<p class="message">You sent <i><%= message.title %></i></p>
+<p class="message"><b><%= message.message %></b></p>
 </div>
 <% end %>
 <% end %> 

@@ -14,13 +14,13 @@ class MessageController <  Sinatra::Base
     
   post '/message/sent' do  
         
-      if params["message"] == "\r\n" && !(params.has_key?("title"))
+      if params["message"] == "\r\n" && params["title"] == ""
         @user =   User.find_by(username: params["author"])
         session["message"] = "Fill out message section" 
         @session = session
         id = @user.id
         redirect "/user/#{id}"
-      elsif !(params.has_key?("title"))
+      elsif params["title"] == ""
         @user =   User.find_by(username: params["author"])
         id = @user.id
         session["message"] = "Write a Title"
@@ -46,7 +46,7 @@ class MessageController <  Sinatra::Base
       new_params = {}
       old_message = Message.find(id)
       new_params[:message] = params["message"]
-      
+      new_params[:title] = params["title"]
       @message = Message.find(params["id"])
       old_message.update(new_params) 
       
@@ -58,9 +58,7 @@ class MessageController <  Sinatra::Base
     @session = session
     id = params[:id]
     @message = Message.find(params[:id]) 
-    ids = @message.sent_to.split("-")
-    @sent_to_users = ids.map{ |x| User.find_by(id: x)} 
-    @all = User.all
+    
     @user = User.find_by(username: @message.author)  
     id = params[:id] 
     

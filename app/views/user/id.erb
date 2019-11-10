@@ -3,8 +3,8 @@
 
 <% if @message %> 
 
-<p class="color">You wrote <b><%= @sent_to_users.map{ |x| x.username }.join(", ") %></b></p>
-<h4>The Updated Message: <%= @message.message %></h4>
+<h4>The Updated Message: <%= @message.title %></h4>
+<h5>to:<%= @message.message %></h5>
 <p>Write new message:</p>
 <% end %>
 <% unless @message %>
@@ -20,10 +20,12 @@
 <p>Title:<input type="text" name="title" id="title"></p>
 
 <br><br>
-<input type="hidden" name="author" value="<%= @user.username %>" checked >From <%=@user.username %><br>
-<textarea class = "content" name="message" rows="5" cols="15">
+
+<textarea class = "content" name="message" rows="17" cols="27">
 
 </textarea> 
+<br>
+<input type="hidden" name="author" value="<%= @user.username %>" checked >By <%=@user.username %><br>
 <input type="submit" id="submit" value="send it">  
 </form>
 
