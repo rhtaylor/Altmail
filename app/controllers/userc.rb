@@ -33,14 +33,16 @@ class UserController <  Sinatra::Base
       erb :index
     end 
     
-    get '/user/:id/' do   
+    get '/user/:id/' do 
+      session["page"] = "profile"
       @session = session
       @user = User.find_by(params)
       @messages = Message.all.map{ |unit| unit.author == @user.username ? unit : next }   
       @all = User.all 
       erb :"/user/id"
     end
-    get '/user/:id/sent_all' do
+    get '/user/:id/sent_all' do 
+          session["page"] = "all"
         @user = User.find(params[:id])
         
         @messages = Message.all.map{ |unit| unit.author == @user.username ? unit : next }  
@@ -49,15 +51,15 @@ class UserController <  Sinatra::Base
     end
 
        post '/user/signup' do 
-    if params[:password_digest] == "" || params[:username] == "" || params[:email] == ""
+       if params[:password_digest] == "" || params[:username] == "" || params[:email] == ""
          session["message"] = "try again" 
          @session = session
          redirect "user/signup" 
-    elsif User.find_by(params)  
+       elsif User.find_by(params)  
          @user = User.find_by(params) 
          session[:user_id] = @user.id
          redirect "user/#{@user.id}" 
-    elsif  x = User.where(email: params[:email]) 
+       elsif  x = User.where(email: params[:email]) 
             unless x == [] 
             session.clear
             session["message"] = "email already used"
@@ -71,7 +73,7 @@ class UserController <  Sinatra::Base
     end
     end  
           get "/user/:id" do 
-            
+            session["page"] = "id"
           @session = session
           @all = User.all 
           

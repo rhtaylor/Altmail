@@ -13,7 +13,7 @@ class MessageController <  Sinatra::Base
    
     
   post '/message/sent' do  
-        
+        session["page"] = "sent"
       if params["message"] == "\r\n"
         @user =   User.find_by(username: params["author"])
         session["message"] = "Fill out message section" 
@@ -33,7 +33,7 @@ class MessageController <  Sinatra::Base
       
       @message = Message.create(params)
       @user = User.find_by(username: @message.author) 
-      binding.pry
+      
       erb :"/user/sent" 
       
       end 
