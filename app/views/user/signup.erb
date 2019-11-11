@@ -1,9 +1,9 @@
 <h1>No rules, just messages</h1>
 <h2>please sign up</h3> 
-<%  %>
-<% if session[:message] == "try again" || session[:message] == "email already used" %>
-<h1><%= session[:message]  %></h1> 
 
+<% if @session[:message] == "try again" || @session[:message] == "email already used" || @session["message"] = "username already taken"  %>
+<h1><%= @session[:message]  %></h1> 
+<% binding.pry %>
 <% end %>
 <form action="/user/signup" method="POST">
   <h4>Name:

@@ -49,8 +49,8 @@ class UserController <  Sinatra::Base
         @session = session
         erb :'/user/sent_all'
     end
-
-       post '/user/signup' do 
+      
+       post  '/user/signup' do 
        if params[:password_digest] == "" || params[:username] == "" || params[:email] == ""
          session["message"] = "try again" 
          @session = session
@@ -65,15 +65,25 @@ class UserController <  Sinatra::Base
             session["message"] = "email already used"
             @session = session
             redirect 'user/signup'
-          else
-          @user = User.create(params) 
+          else  
+
+            new_params = {username: params["username"], email: params["email"], password: params["password_digest"], password_confirmation: params["password_digest"] }
+            @user = User.create(new_params) 
+            @yes = @user.try(:id) 
+            if @yes == nil 
+              session["message"] = "username already taken" 
+              @session = session
+              erb :"user/signup"
+            else
           session[:user_id] = @user.id
-          redirect "user/#{@user.id}" 
+          redirect "user/#{@user.id}"  
+            end
             end
     end
     end  
           get "/user/:id" do 
-            session["page"] = "id"
+            session["page"] = "id" 
+            session.delete(:message)
           @session = session
           @all = User.all 
           
