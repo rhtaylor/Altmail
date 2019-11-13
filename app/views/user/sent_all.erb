@@ -7,7 +7,7 @@
   </head>
   <body>
 
-<% %>
+
 <h1><%= @user.username %></h1>
 <h1>You have written <%= @messages.count %> messages</h1> 
 <div class="task">
@@ -15,21 +15,28 @@
 <% id = @user.id %>
 <p><%= @user.username %><a href="/user/<%= id %>" > write a message</a></p> 
 <% end %>
-<% unless @messages == [] %> 
+
 
 <% @messages.each do |message| %>   
-  <div class="box"> 
-  <%  %>
-  <p class="message">Title <i><%= message.title %></i></p>
-  <p class="message"><b><%= message.message %></b></p>  
-  <a href='/message/<%= message.id %>/edit'>Edit</a>
-  <br>
-  <form method="post" action="/message/<%= message.id %>/delete"> 
+  <% if message.try(:author) == @user.username %>
+  <div class="box">  
+  <p class="message">Title <i><%= message.try(:title) %></i></p>
+  <p class="message"><b><%= message.try(:message) %></b></p>  
+  <%  message.try(:created_at) %>
+  <p class="message"><i><%= message.try(:created_at).try(:month) %>/<%= message.try(:created_at).try(:day) %>/<%= message.try(:created_at).try(:year)%></i></p> 
+  
+  <a href='/message/<%= message.try(:id) %>/edit'>Edit</a>
+  <br> 
+  
+  <form method="post" action="/message/<%= message.try(:id) %>/delete"> 
   Delete this message<input type="hidden" name="_method" value="delete" />
-  <input type="submit" value="delete"/>
-  </div>
+  <input type="submit" value="delete"/> 
+  
+  </div> 
+  <% end %>
+  <% end %>
+
  
 
-<% end %>
-<% end %> 
 </body>
+</html>

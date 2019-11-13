@@ -28,14 +28,11 @@ class MessageController <  Sinatra::Base
         @session = session 
         id = @user.id
         redirect "user/#{id}"
-
-      elsif
-      
+     elsif 
       @message = Message.create(params)
       @user = User.find_by(username: @message.author) 
       
       erb :"/user/sent" 
-      
       end 
     end
 

@@ -19,7 +19,8 @@ task :muhaha do
       t.string :message 
       t.string :author
       t.string :title
-      t.integer :user_id
+      t.integer :user_id 
+      t.timestamps
     end 
     
   end
@@ -34,4 +35,13 @@ task :bro do
     end 
     
   end
+end
+ 
+
+task :add_time do 
+  def change_table 
+    change_table :messages do |t|
+    t.timestamps
+  end 
+end 
 end

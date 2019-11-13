@@ -4,7 +4,10 @@ class CreateMessages < ActiveRecord::Migration
           t.string :message 
            t.string :author
            t.integer :user_id 
-           t.string :title
+           t.string :title 
+           t.timestamps
   end
-end
+end 
+
+
 end
