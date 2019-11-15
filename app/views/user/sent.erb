@@ -11,11 +11,16 @@
       <label for "title">Title:</label>
       <input type="text" id="title" name="title" value="<%= @message.title %>" >
       <br />
-    <% id = @user.id %>
-    
-      <br />
+      <% id = @user.id %>
       <label for "name">Message:</label> 
-      <input type="text" id="message" name="message" value="<%=@message.message %>">
+    
+      <br />  
+      
+      <textarea class = "content" name="message" rows="17" cols="27">
+      <%= @message.message %>
+      </textarea> 
+      
+       
       <br />
       <b>Change the message<input type="submit" value="EDIT" id="Update"></b>
     </form>
