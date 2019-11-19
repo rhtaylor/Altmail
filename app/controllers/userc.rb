@@ -52,37 +52,38 @@ class UserController <  Sinatra::Base
         
     end
       
-       post  '/user/signup' do 
-       if params[:password_digest] == "" || params[:username] == "" || params[:email] == ""
-         session["message"] = "try again" 
-         @session = session
-         redirect "user/signup" 
-       elsif User.find_by(params)  
-         @user = User.find_by(params) 
-         session[:user_id] = @user.id
-         redirect "user/#{@user.id}" 
-       elsif  x = User.where(email: params[:email]) 
-            unless x == [] 
-            session.clear
-            session["message"] = "email already used"
-            @session = session
-            redirect 'user/signup'
-          else  
-
-            new_params = {username: params["username"], email: params["email"], password: params["password_digest"], password_confirmation: params["password_digest"] }
-            @user = User.create(new_params) 
-            @yes = @user.try(:id) 
-            if @yes == nil 
-              session["message"] = "username already taken" 
-              @session = session
-              erb :"user/signup"
-            else
-          session[:user_id] = @user.id
-          redirect "user/#{@user.id}"  
-            end
-            end
-    end
-    end  
+    post  '/user/signup' do 
+          session.clear 
+          
+      if params[:password_digest] == "" || params[:username] == "" || params[:email] == ""
+        session["message"] = "try again" 
+        @session = session
+        erb :"user/signup" 
+      elsif User.find_by(username: params["username"], email: params["email"])   
+        
+            @user = User.find_by(username: params["username"], email: params["email"]) 
+            @user.authenticate(params["password_digest"])
+            redirect "user/signin"  
+      
+      elsif  User.find_by(email: params[:email]) 
+           session["message"] = "email already used"
+           @session = session 
+           redirect 'user/signup'
+      elsif  User.find_by(username: params[:username]) 
+              session["message"] == "username already taken"
+              redirect 'user/signup'
+      elsif
+              new_params = {username: params["username"], email: params["email"], password: params["password_digest"], password_confirmation: params["password_digest"] }
+          
+              @user = User.create(new_params) 
+              @yes = @user.try(:id) 
+           
+              session[:user_id] = @user.id
+              redirect "user/#{@user.id}"  
+      
+         end     
+      end
+   
           get "/user/:id" do 
             session["page"] = "id" 
             session.delete(:message)
@@ -92,19 +93,21 @@ class UserController <  Sinatra::Base
           @user = User.find(params[:id])
           erb :"/user/id"
     end  
-          post '/user/signin' do  
-
-          match = User.where(username: params["username"], password_digest: params["password_digest"])  
-     if   match == []
-          session["message"] = "try again" 
-          @session = session
-          redirect "/user/signin" 
-     else  
-          @user = match.first
-          session[:user_id] = @user.id
-          redirect "/user/#{@user.id}"
-     end
-     end
+    post '/user/signin' do   
+          
+      if user = User.find_by(username: params["username"])
+      
+      
+        
+       user.authenticate(params["password_digest"])
+       @user = user
+       session[:user_id] = @user.id
+       redirect "/user/#{@user.id}"
+    elsif 
+      session["message"] = "try again" 
+      @session = session
+      redirect "/user/signin" 
     
-     
+    end 
+  end 
 end
