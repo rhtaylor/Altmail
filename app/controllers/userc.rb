@@ -16,13 +16,14 @@ class UserController <  Sinatra::Base
         erb :index 
     end 
     get '/user/signin' do
+        session["message"] = ''
         session[:page] = "signin"
         @session = session      
         erb :'user/signin'
        
     end  
     get '/user/signup' do
-      session[:page] = "signin"
+      session[:page] = "signup"
       @session = session  
     erb :'user/signup' 
 
@@ -35,9 +36,14 @@ class UserController <  Sinatra::Base
     
     get '/user/:id/' do 
       session["page"] = "profile"
-      @session = session
-      @user = User.find_by(params)
-      @messages = Message.all.map{ |unit| unit.author == @user.username ? unit : next }   
+      @session = session 
+      
+     
+      @user = User.find_by(id: session["user_id"])
+       
+      @messages = Message.all.where(user_id: session["user_id"])
+
+         
       @all = User.all 
       erb :"/user/id"
     end
@@ -53,7 +59,7 @@ class UserController <  Sinatra::Base
     end
       
     post  '/user/signup' do 
-          session.clear 
+        
           
       if params[:password_digest] == "" || params[:username] == "" || params[:email] == ""
         session["message"] = "try again" 
@@ -70,11 +76,13 @@ class UserController <  Sinatra::Base
            @session = session 
            redirect 'user/signup'
       elsif  User.find_by(username: params[:username]) 
-              session["message"] == "username already taken"
-              redirect 'user/signup'
+              
+               session["message"] = "username already taken" 
+              @session = session
+              erb :'user/signup'
       elsif
               new_params = {username: params["username"], email: params["email"], password: params["password_digest"], password_confirmation: params["password_digest"] }
-          
+              
               @user = User.create(new_params) 
               @yes = @user.try(:id) 
            
@@ -104,7 +112,7 @@ class UserController <  Sinatra::Base
        session[:user_id] = @user.id
        redirect "/user/#{@user.id}"
     elsif 
-      session["message"] = "try again" 
+      session["error"] = "try again" 
       @session = session
       redirect "/user/signin" 
     
