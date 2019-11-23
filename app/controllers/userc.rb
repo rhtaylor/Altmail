@@ -102,20 +102,22 @@ class UserController <  Sinatra::Base
           erb :"/user/id"
     end  
     post '/user/signin' do   
-          
-      if user = User.find_by(username: params["username"])
-      
-      
+             
+        user_package = User.where(username: params["username"])
+      unless user_package == [] 
         
-       user.authenticate(params["password_digest"])
+        user = user_package.first
+        if user.authenticate(params["password_digest"]) 
+            
+      
        @user = user
        session[:user_id] = @user.id
        redirect "/user/#{@user.id}"
-    elsif 
+      else
       session["error"] = "try again" 
       @session = session
       redirect "/user/signin" 
-    
+      end
     end 
   end 
 end
