@@ -1,5 +1,5 @@
 .wrapper { 
-   
+    display: flex;
     flex-direction: column;
     background-color: rgb(201, 222, 230);
     color: #333;
@@ -19,4 +19,13 @@
 
 .content {
     width: 50%
+} 
+
+.box {
+    
+    border-style: double;
+    width: 400px; 
+    background-color: rgb(205, 255, 248);  
+    max-width: 400px;
+
 }

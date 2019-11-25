@@ -60,14 +60,14 @@ class UserController <  Sinatra::Base
   post  '/user/signup' do 
         
           
-      if params[:password_digest] == "" || params[:username] == "" || params[:email] == ""
+      if params[:password] == "" || params[:username] == "" || params[:email] == ""
          session["message"] = "try again" 
          @session = session
         erb :"user/signup" 
       elsif User.find_by(username: params["username"], email: params["email"])   
         
             @user = User.find_by(username: params["username"], email: params["email"]) 
-            @user.authenticate(params["password_digest"])
+            @user.authenticate(params["password"])
             redirect "user/signin"  
       
       elsif  User.find_by(email: params[:email]) 
@@ -80,9 +80,10 @@ class UserController <  Sinatra::Base
               @session = session
               erb :'user/signup'
       elsif
-              new_params = {username: params["username"], email: params["email"], password: params["password_digest"], password_confirmation: params["password_digest"] }
-              
+              new_params = {username: params["username"], email: params["email"], password: params["password"], password_confirmation: params["password_confirmation"] }
+              binding.pry
               @user = User.create(new_params) 
+              binding.pry
               @yes = @user.try(:id) 
            
               session[:user_id] = @user.id
@@ -100,22 +101,22 @@ class UserController <  Sinatra::Base
           erb :"/user/id"
     end  
   post '/user/signin' do   
-         params["username"] == "" || params["password_digest"] == '' ? (redirect '/user/signin') : next  
-        user_package = User.where(username: params["username"])
-      unless user_package == [] 
-        
-            user = user_package.first
-      if user.authenticate(params["password_digest"]) 
+         params["username"] == "" || params["password"] == '' ? (redirect '/user/signin') : 
+         user_package = User.where(username: params["username"])
+     if user_package == [] 
+          session["error"] = "try again" 
+          @session = session
+          
+          redirect "/user/signin" 
+        else user = user_package.first
+         user.authenticate(params["password"]) 
             
       
           @user = user
           session[:user_id] = @user.id
           redirect "/user/#{@user.id}"
-      else
-         session["error"] = "try again" 
-         @session = session
-         redirect "/user/signin" 
-      end
+     
+      
     end 
   end 
 end

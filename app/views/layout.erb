@@ -25,9 +25,11 @@
     <br>
     <% if !(Helpers.is_logged_in?(session)) %>
     <% unless @session.has_key?("page") %> 
-    
-        <div id="logged_out">
-        <a href="/user/signin">Sign In</a> 
+        <br>
+        <div class="box">
+        
+        <a href="/user/signin">Sign In</a>
+        
         <a href='/user/signup'>Sign Up</a> 
         </div>
         <% end %> 
