@@ -47,7 +47,7 @@ class UserController <  Sinatra::Base
       @all = User.all 
       erb :"/user/id"
     end
-    get '/user/:id/sent_all' do 
+  get '/user/:id/sent_all' do 
         session["page"] = "all"
         @user = User.find(params[:id])
         @user.id 
@@ -55,15 +55,14 @@ class UserController <  Sinatra::Base
         
         @session = session
         erb :"/user/sent_all" 
-        
-    end
+  end
       
-    post  '/user/signup' do 
+  post  '/user/signup' do 
         
           
       if params[:password_digest] == "" || params[:username] == "" || params[:email] == ""
-        session["message"] = "try again" 
-        @session = session
+         session["message"] = "try again" 
+         @session = session
         erb :"user/signup" 
       elsif User.find_by(username: params["username"], email: params["email"])   
         
@@ -72,9 +71,9 @@ class UserController <  Sinatra::Base
             redirect "user/signin"  
       
       elsif  User.find_by(email: params[:email]) 
-           session["message"] = "email already used"
-           @session = session 
-           redirect 'user/signup'
+            session["message"] = "email already used"
+            @session = session 
+            redirect 'user/signup'
       elsif  User.find_by(username: params[:username]) 
               
                session["message"] = "username already taken" 
@@ -89,34 +88,33 @@ class UserController <  Sinatra::Base
               session[:user_id] = @user.id
               redirect "user/#{@user.id}"  
       
-         end     
-      end
-   
-          get "/user/:id" do 
+      end     
+  end
+    get   "/user/:id" do 
             session["page"] = "id" 
             session.delete(:message)
-          @session = session
-          @all = User.all 
+            @session = session
+            @all = User.all 
           
-          @user = User.find(params[:id])
+             @user = User.find(params[:id])
           erb :"/user/id"
     end  
-    post '/user/signin' do   
-             
+  post '/user/signin' do   
+         params["username"] == "" || params["password_digest"] == '' ? (redirect '/user/signin') : next  
         user_package = User.where(username: params["username"])
       unless user_package == [] 
         
-        user = user_package.first
-        if user.authenticate(params["password_digest"]) 
+            user = user_package.first
+      if user.authenticate(params["password_digest"]) 
             
       
-       @user = user
-       session[:user_id] = @user.id
-       redirect "/user/#{@user.id}"
+          @user = user
+          session[:user_id] = @user.id
+          redirect "/user/#{@user.id}"
       else
-      session["error"] = "try again" 
-      @session = session
-      redirect "/user/signin" 
+         session["error"] = "try again" 
+         @session = session
+         redirect "/user/signin" 
       end
     end 
   end 
