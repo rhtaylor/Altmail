@@ -81,14 +81,19 @@ class UserController <  Sinatra::Base
               erb :'user/signup'
       elsif
               new_params = {username: params["username"], email: params["email"], password: params["password"], password_confirmation: params["password_confirmation"] }
-              binding.pry
+          
               @user = User.create(new_params) 
-              binding.pry
+              if @user.try(:id) == nil 
+                  session['message'] = "passwords don't match"
+                  session['page'] = 'signup'
+                  @session = session
+                  erb :'user/signup'
+              else
               @yes = @user.try(:id) 
            
               session[:user_id] = @user.id
               redirect "user/#{@user.id}"  
-      
+              end
       end     
   end
     get   "/user/:id" do 
