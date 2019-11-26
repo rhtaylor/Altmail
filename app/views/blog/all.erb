@@ -10,6 +10,15 @@
     <h2><%= message.title %></h2>
     <h3><%= message.message %></h3> 
     <h4 class="slate">Author <i><%= message.author %></i> Posted on <b><%= message.created_at.month %>/<%= message.created_at.day %>/<%= message.created_at.year %></b></h4>
-</div>
+</div> 
 <% end %>
+<footer>
+  
+<form action="/blog" method="get">
+  <input type="hidden" name="filtered" value="reverse">
+  <h1>
+  <input type="submit" value="most recent"></h1>
+  </form>
+  </footer>
+
 
