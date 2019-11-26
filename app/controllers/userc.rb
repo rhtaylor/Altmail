@@ -67,8 +67,10 @@ class UserController <  Sinatra::Base
       elsif User.find_by(username: params["username"], email: params["email"])   
         
             @user = User.find_by(username: params["username"], email: params["email"]) 
-            @user.authenticate(params["password"])
-            redirect "user/signin"  
+            @user.authenticate(params["password"]) 
+            session["error"] = "user already exists, sign in"
+            @session = session
+            erb :"/user/signin"  
       
       elsif  User.find_by(email: params[:email]) 
             session["message"] = "email already used"
@@ -113,15 +115,18 @@ class UserController <  Sinatra::Base
           @session = session
           
           redirect "/user/signin" 
-        else user = user_package.first
-         user.authenticate(params["password"]) 
-            
+        else user = user_package.first 
+             if user.authenticate(params["password"]) 
+          
       
-          @user = user
-          session[:user_id] = @user.id
-          redirect "/user/#{@user.id}"
-     
-      
+              @user = user
+              session[:user_id] = @user.id
+              redirect "/user/#{@user.id}"
+             else  
+              session["error"] = "incorrect password"
+              @session = session
+              erb :'/user/signin'
+             end
     end 
   end 
 end

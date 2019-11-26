@@ -3,7 +3,8 @@
 
 <h2>please sign in</h3> 
 <% if @session.include?("error") %>
-<%= @session[:error] %>
+<h3 class="red"><%= @session[:error] %></h3>
+    
 
 <p>Or <a href='/user/signup'>Sign Up</a>
 <% end %> 
@@ -13,7 +14,7 @@
   <input type="text" name="username" id="username"><h/h4>
 <br>
 <h4>Password:
-  <input type="text" name="password_digest" id="password_digest"></h4>
+  <input type="text" name="password" id="password"></h4>
   <input type="submit" value="Sign In">
 </form> 
 <% if @session["error"] %>

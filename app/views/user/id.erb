@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="/stylesheets/mail.css" />
   </head>
 <h1>Welcome <%= @user.username %> </h1>
-<% if session["page"] == "profile" %>
+<% if session["page"] == "profile" %> 
+<h2>Member since <%=@user.created_at.month%>/<%=@user.created_at.day %>/<%=@user.created_at.year%></h2>
 <h2>You have <%= @messages.count %> messages</h2> 
 <% end %>
 <% if @message %> 
