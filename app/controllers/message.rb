@@ -78,6 +78,7 @@ class MessageController <  Sinatra::Base
   end
 
    delete '/message/:id/delete' do 
+    @user = Helpers.current_user(session)
     
     @message = Message.find(params["id"]) 
     author = @message.author 
