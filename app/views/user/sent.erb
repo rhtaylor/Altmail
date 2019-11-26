@@ -2,7 +2,7 @@
 <h1 ><%= @message.author %></h1>
 
 <div class="task">
-
+<h3>It's been noted</h3>
 <div class="force"> 
     <div class="box">
     <% user = params[:user] %>
@@ -22,11 +22,11 @@
       
        
       <br />
-      <b>Change the message<input type="submit" value="EDIT" id="Update"></b>
+      <b>Change the note<input type="submit" value="Update" id="Update"></b>
     </form>
 <form method="post" action="/message/<%= @message.id %>/delete"> 
     
-  <b>Delete the message<input type="hidden" name="_method" value="delete" /></b>
+  <b>Delete the note<input type="hidden" name="_method" value="delete" /></b>
   <input type="submit" value="delete"/> 
   
 </form> 

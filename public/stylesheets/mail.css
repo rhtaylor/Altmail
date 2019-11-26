@@ -11,11 +11,13 @@
     margin-right: auto;
 } 
 
+.grey { color: slategrey;}
 
 .red { 
     color: red;
 }
 
+.slate { color: slateblue;}
 
 .content {
     width: 50%

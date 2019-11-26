@@ -9,7 +9,7 @@
 <div class="box">
     <h2><%= message.title %></h2>
     <h3><%= message.message %></h3> 
-    <h4>Author <i><%= message.author %></i> <%= message.created_at.month %>/<%= message.created_at.day %>/<%= message.created_at.year %></h4>
+    <h4 class="slate">Author <i><%= message.author %></i> Posted on <b><%= message.created_at.month %>/<%= message.created_at.day %>/<%= message.created_at.year %></b></h4>
 </div>
 <% end %>
 
