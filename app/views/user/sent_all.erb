@@ -17,7 +17,6 @@
 <p><%= @user.username %><a href="/user/<%= id %>" > write a message</a></p> 
 <% end %>
 
-
 <% @messages.each do |message| %>   
   <% if message.try(:author) == @user.username %>
   <div class="box">  
@@ -28,16 +27,23 @@
   
   <a href='/message/<%= message.try(:id) %>/edit'>Edit</a>
   <br> 
-  
-  <form method="post" action="/message/<%= message.try(:id) %>/delete"> 
-  Delete this message<input type="hidden" name="_method" value="delete" />
-  <input type="submit" value="delete"/> 
-  
-  </div> 
-  <% end %>
-  <% end %>
-
+  <%  %>
+  <a href='/message/<%= message.try(:id) %>/delete'>Delete</a>
+  </div>
+  <% end %> 
  
+  <% end %>
+  </br>
+  <div id="end">
+  <footer>
+  
+<form action="/user/<%= @user.id %>/sent_all" method="get">
+  <input type="hidden" name="filtered" value="reverse">
+  <h1>
+  <input type="submit" value="most recent"></h1>
+  </form>
+  </footer>
+</div>
 
 </body>
 </html>

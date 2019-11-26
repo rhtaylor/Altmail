@@ -70,11 +70,19 @@ class MessageController <  Sinatra::Base
     erb  :"/message/edit"
   end 
   
+  get '/message/:id/delete' do  
+    @message = Message.find(params["id"]) 
+    author = @message.author 
+    @user = User.find_by("author" ==  author) 
+    erb :'/message/delete'
+  end
+
    delete '/message/:id/delete' do 
     
     @message = Message.find(params["id"]) 
     author = @message.author 
-    @user = User.find_by("author" ==  author)
+    @user = User.find_by("author" ==  author) 
+    
     @message.destroy
     id = @user.id
     

@@ -1,8 +1,9 @@
 <% session["message"] = "" %>
-<h1 ><%= @message.author %></h1>
-
-<div class="task">
+<h2 ><%= @message.author %></h2>
 <h3>It's been noted</h3>
+<div class="task">
+
+
 <div class="force"> 
     <div class="box">
     <% user = params[:user] %>
@@ -24,7 +25,7 @@
       <br />
       <b>Change the note<input type="submit" value="Update" id="Update"></b>
     </form>
-<form method="post" action="/message/<%= @message.id %>/delete"> 
+  <form method="post" action="/message/<%= @message.id %>/delete"> 
     
   <b>Delete the note<input type="hidden" name="_method" value="delete" /></b>
   <input type="submit" value="delete"/> 

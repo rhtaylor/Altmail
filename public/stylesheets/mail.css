@@ -26,8 +26,9 @@
 .box {
     
     border-style: double;
-    width: 400px; 
+    width: 500px; 
     background-color: rgb(205, 255, 248);  
-    max-width: 400px;
+    max-width: 500px;
 
-}
+} 
+

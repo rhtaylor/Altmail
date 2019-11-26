@@ -48,13 +48,16 @@ class UserController <  Sinatra::Base
       erb :"/user/id"
     end
   get '/user/:id/sent_all' do 
-        session["page"] = "all"
+       session["page"] = "all"
         @user = User.find(params[:id])
         @user.id 
-        @messages = Message.where(user_id: @user.id) 
-        
-        @session = session
+        @messages = params.has_key?('filtered') ? @user.messages.reverse_order : Message.where(user_id: @user.id) 
+        @session =  session
         erb :"/user/sent_all" 
+       
+         
+         
+      
   end
       
   post  '/user/signup' do 
@@ -120,8 +123,12 @@ class UserController <  Sinatra::Base
           
       
               @user = user
-              session[:user_id] = @user.id
-              redirect "/user/#{@user.id}"
+              session.clear
+              session[:user_id] = @user.id 
+              session[:page] = "home"
+            
+              @session = session
+              erb :"/user/home"
              else  
               session["error"] = "incorrect password"
               @session = session

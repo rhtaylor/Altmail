@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<%  @message.try(:author) == @user.username %>
+  <div class="box">  
+  <b><h2 class="red">Title <i><%= @message.try(:title) %></i></h2></b>
+  <p class="message"><b><%= @message.try(:message) %></b></p>  
+  <%  @message.try(:created_at) %>
+  <p class="message"><i><%= @message.try(:created_at).try(:month) %>/<%= @message.try(:created_at).try(:day) %>/<%= @message.try(:created_at).try(:year)%></i></p> 
+  <span>
+  <form method="POST" action="/message/<%= @message.try(:id) %>/delete">
+  <input type="hidden" name="_method" value="delete" />
+  <input class = "red" type="submit" value="delete"/> 
+  </form>
+</span>
+</body>
+</html>
