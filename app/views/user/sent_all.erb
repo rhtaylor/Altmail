@@ -6,7 +6,8 @@
   <link rel="stylesheet" href="/stylesheets/sent.css" /> 
   </head>
   <body>
-
+<% if Helpers.is_logged_in?(session) %>
+<% @user = Helpers.current_user(session)%>
 
 <h1><%= @user.username %></h1> 
 
@@ -34,6 +35,7 @@
  
   <% end %>
   </br>
+  </br>
   <div id="end">
   <footer>
   
@@ -44,6 +46,6 @@
   </form>
   </footer>
 </div>
-
+<% end %>
 </body>
 </html>

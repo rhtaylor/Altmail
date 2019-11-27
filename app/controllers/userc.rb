@@ -47,9 +47,10 @@ class UserController <  Sinatra::Base
       @all = User.all 
       erb :"/user/id"
     end
-  get '/user/:id/sent_all' do 
+  get '/user/sent_all' do 
        session["page"] = "all"
-        @user = User.find(params[:id])
+        @user = Helpers.current_user(session)
+        
         @user.id 
         @messages = params.has_key?('filtered') ? @user.messages.reverse_order : Message.where(user_id: @user.id) 
         @session =  session

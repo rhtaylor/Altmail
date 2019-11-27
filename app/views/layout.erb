@@ -16,7 +16,7 @@
     <% id = session["user_id"] %>
     <% @user = Helpers.current_user(session) %> 
     
-    <span><a href='/user/<%= @user.id %>/sent_all' >Your notes</a>| 
+    <span><a href='/user/sent_all' >Your notes</a>| 
     <a href='/user/home/' >Your profile</a>|
     <a href='/blog' >Blog</a>|
     <a href="/user/logout">log out</a>
