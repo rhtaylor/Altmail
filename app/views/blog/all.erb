@@ -1,10 +1,11 @@
-<html>
+
   <head> 
   <link href='/public/stylesheets/sent' type="text/css" rel="stylesheet" />
   <link rel="stylesheet" href="/stylesheets/sent.css" /> 
   </head>
   
   <body>
+<div class="wrapper">
 <% @messages.each do |message| %> 
 <div class="box">
     <h2><%= message.title %></h2>
@@ -12,6 +13,7 @@
     <h4 class="slate">Author <i><%= message.author %></i> Posted on <b><%= message.created_at.month %>/<%= message.created_at.day %>/<%= message.created_at.year %></b></h4>
 </div> 
 <% end %>
+</div>
 <footer>
   
 <form action="/blog" method="get">

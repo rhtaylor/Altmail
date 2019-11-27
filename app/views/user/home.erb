@@ -18,9 +18,7 @@
 
     <link rel="stylesheet" href="/stylesheets/mail.css" />
   </head>
-  <% if @session[:page] == "home" %>
-  <%= "Refactored! FTW" %> 
-  <% end %>
+  
 <h1 class="grey">Welcome <%= @user.username %> </h1>
 <% if session["page"] == "profile" %> 
 <h2 class="slate">Member since <%=@user.created_at.month%>/<%=@user.created_at.day %>/<%=@user.created_at.year%></h2>

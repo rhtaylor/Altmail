@@ -12,7 +12,7 @@
 <h1><%= @user.username %></h1> 
 
 <h1>You have written <%= @messages.count %> notes</h1> 
-<div class="task">
+<div class="wrapper">
 <% if @messages == [] %> 
 <% id = @user.id %>
 <p><%= @user.username %><a href="/user/<%= id %>" > write a message</a></p> 
@@ -39,7 +39,7 @@
   <div id="end">
   <footer>
   
-<form action="/user/<%= @user.id %>/sent_all" method="get">
+<form action="/user/sent_all" method="get">
   <input type="hidden" name="filtered" value="reverse">
   <h1>
   <input type="submit" value="most recent"></h1>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/stylesheets/mail.css" />
   </head>
   <body>
-    <div class="wrapper"> 
+    
     
     <% if Helpers.is_logged_in?(session) %>  
     <% id = session["user_id"] %>
@@ -20,7 +20,8 @@
     <a href='/user/home/' >Your profile</a>|
     <a href='/blog' >Blog</a>|
     <a href="/user/logout">log out</a>
-    </span>
+    </span> 
+    <div class="wrapper">
     <% end %>
         <%= yield %> 
     <br>
